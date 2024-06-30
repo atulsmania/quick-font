@@ -36,6 +36,13 @@ const Search = () => {
         inputRef.current.value = '';
     };
 
+    const clearFontSelection = () => {
+        setSelectedFont(null);
+        setSearchInput('');
+        if (!inputRef.current) return;
+        inputRef.current.value = '';
+    };
+
     const isListOpen = list.length > 0;
     return (
         <div className="min-w-[300px]">
@@ -58,6 +65,30 @@ const Search = () => {
                         selectedFont?.family || 'Search google fonts...'
                     }
                 />
+                <div
+                    onClick={clearFontSelection}
+                    className={clsx(
+                        'absolute -translate-y-1/2 cursor-pointer right-2 top-1/2',
+                        'text-gray-500 hover:text-gray-800',
+                        {
+                            hidden: !selectedFont,
+                        },
+                    )}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" />
+                    </svg>
+                </div>
 
                 {!!isListOpen && (
                     <div className="absolute z-30 w-full py-3 overflow-scroll text-sm bg-white shadow max-h-64">

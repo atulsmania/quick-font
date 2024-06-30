@@ -22,8 +22,7 @@ const ShadowHost: React.FC<ShadowHostProps> = ({ children, styles }) => {
 
     const updateSelectedFont = useCallback(async () => {
         const loaded = await loadFont(selectedFont, selectedVariant!);
-        if (!loaded) return;
-        setLoadedFont(loaded);
+        setLoadedFont(loaded || null);
     }, [selectedVariant, selectedFont]);
 
     useEffect(() => {
