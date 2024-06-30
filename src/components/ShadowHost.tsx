@@ -15,16 +15,20 @@ interface ShadowHostProps {
 }
 
 const ShadowHost: React.FC<ShadowHostProps> = ({ children, styles }) => {
-    const { selectedFont } = useAppContext();
+    const { selectedFont, selectedVariant } = useAppContext();
     const rootRef = useRef<HTMLDivElement>(null);
     const reactRootRef = useRef<Root | null>(null);
     const [loadedFont, setLoadedFont] = useState<FontFace | null>(null);
 
     const updateSelectedFont = useCallback(async () => {
-        const loaded = await loadFont(selectedFont);
+        const loaded = await loadFont(selectedFont, selectedVariant!);
         if (!loaded) return;
         setLoadedFont(loaded);
-    }, [selectedFont]);
+    }, [selectedVariant, selectedFont]);
+
+    useEffect(() => {
+        updateSelectedFont();
+    }, [updateSelectedFont, selectedVariant]);
 
     useEffect(() => {
         updateSelectedFont();

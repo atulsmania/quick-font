@@ -38,9 +38,16 @@ export const getFontStyle = (fontFace: FontFace | null) => {
     }`;
 };
 
-export const loadFont = async (font: Font | null) => {
-    if (!font) return;
-    const fontFace = new FontFace(font.family, `url(${font.files['regular']})`);
+export const getDefaultVariant = (font: Font) => {
+    return (
+        font.variants.find((variant) => variant.match(/regular/i)) ||
+        font.variants[0]
+    );
+};
+
+export const loadFont = async (font: Font | null, variant: string | null) => {
+    if (!font || !variant) return;
+    const fontFace = new FontFace(font.family, `url(${font.files[variant]})`);
     const loadedFont = await fontFace.load();
     document.fonts.add(loadedFont);
     return loadedFont;

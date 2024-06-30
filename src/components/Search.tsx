@@ -38,16 +38,17 @@ const Search = () => {
 
     const isListOpen = list.length > 0;
     return (
-        <div className="w-full max-w-sm">
-            <div className="relative bg-white">
+        <div className="min-w-[300px]">
+            <div className="relative w-full">
                 <input
                     ref={inputRef}
                     className={clsx(
-                        'w-full px-2 py-1 text-gray-700 bg-gray-200 focus:outline-none',
+                        'w-full px-2 py-1 text-gray-700 bg-gray-200 focus:outline-none rounded',
                         {
                             'placeholder:text-gray-400': !selectedFont,
                             'placeholder:text-gray-900 focus:placeholder:text-gray-400':
                                 selectedFont,
+                            'rounded-b-none': isListOpen,
                         },
                     )}
                     id="search"
